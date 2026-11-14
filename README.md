@@ -4,16 +4,19 @@ Autonomous Multi-Agent Incident Response Console
 
 From incident detection to evidence-backed resolution — intelligently, safely, and autonomously.
 
-<p align="center">Built for AgentX | SYNERGY | Syedric College
+<p align="center">Built for AgentX | SYNERGY | Sahyadri College of Engineering and Management
 
 </p><p align="center">
   <img src="https://img.shields.io/badge/AI-Multi--Agent%20System-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Orchestration-LangGraph-2563EB?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Visualization-Three.js-black?style=for-the-badge" />
 </p><p align="center">
   <a href="https://pagerpal.vercel.app/">🌐 Live Demo</a> •
+  <a href="#-features">Features</a> •
   <a href="#-architecture">Architecture</a> •
+  <a href="#-project-structure">Project Structure</a> •
   <a href="#-getting-started">Getting Started</a> •
   <a href="#-team">Team</a>
 </p>---
@@ -41,7 +44,7 @@ It transforms traditional incident management into an intelligent workflow where
 
 Unlike conventional AI automation tools, PagerPal separates AI decision-making from execution permissions through an independent Python-based policy engine.
 
-Our vision:
+Our Vision
 
 «Turn a 30-minute, 3 AM incident-response scramble into a 2-minute, evidence-backed approve-and-resolve workflow.»
 
@@ -49,7 +52,7 @@ Our vision:
 
 ---
 
-✨ Key Features
+✨ Features
 
 1. Multi-Agent AI Investigation
 
@@ -130,14 +133,14 @@ Previous incidents can provide suggestions, but historical fixes are never autom
 
 🧠 What Makes PagerPal Different?
 
-PagerPal combines several engineering approaches into one incident-response architecture.
+PagerPal combines agentic intelligence, causal analysis, deterministic safety enforcement, and human accountability.
 
 Traditional Monitoring| PagerPal
 Displays alerts| Investigates incidents
 Requires manual correlation| Correlates telemetry
 Relies on manual RCA| Uses causal dependency analysis
 Human manually researches fixes| AI proposes evidence-backed remediation
-Automation may execute predefined actions| Independent policy engine controls execution
+Automation executes predefined actions| Independent policy engine controls execution
 Assumes action success| Independently verifies recovery
 
 The key innovation is not simply using AI to fix incidents. It is combining agentic intelligence with deterministic safety enforcement and human accountability.
@@ -146,7 +149,9 @@ The key innovation is not simply using AI to fix incidents. It is combining agen
 
 🏗️ Architecture
 
-PagerPal follows a multi-layer architecture designed to separate investigation, decision-making, safety validation, execution, and recovery verification.
+PagerPal follows a modular multi-agent architecture designed to separate investigation, decision-making, safety validation, execution, and recovery verification.
+
+High-Level Agent Workflow
 
 flowchart TD
     A["Simulated Monitoring Telemetry"] --> B["Supervisor Agent"]
@@ -166,13 +171,160 @@ flowchart TD
     N -->|No| L
     O --> P["Knowledge Base & Postmortem"]
 
-Architecture Principles
+System Architecture
+
+The platform consists of interconnected layers responsible for user interaction, API communication, agent orchestration, safety enforcement, persistence, and integrations.
+
+flowchart TB
+    U["Operator / User"]
+    
+    subgraph FRONTEND["Presentation Layer"]
+        UI["React Dashboard"]
+        V["Three.js 3D Topology"]
+    end
+
+    subgraph BACKEND["Backend Layer"]
+        API["FastAPI Backend"]
+    end
+
+    subgraph INTELLIGENCE["Agentic Intelligence Layer"]
+        S["Supervisor Agent"]
+        T["Triage Agent"]
+        I["Investigator Agent"]
+        RCA["NetworkX Causal RCA"]
+        E["Evidence Verifier"]
+        C["Confidence Scorer"]
+        R["Remediation Agent"]
+        COM["Communications Agent"]
+    end
+
+    subgraph SAFETY["Safety & Execution Layer"]
+        P["Python Policy Engine"]
+        H["Human Approval Gate"]
+        X["Controlled Remediation"]
+        RV["Recovery Verification"]
+    end
+
+    DB[("SQLite Database")]
+    EXT["GitHub / Slack / Discord"]
+
+    U --> UI
+    UI --> V
+    UI <--> API
+    API <--> S
+    S --> T --> I --> RCA --> E --> C --> R
+    R --> P --> H
+    H -->|Approved| X
+    H -->|Rejected| API
+    X --> RV
+    RV --> DB
+    COM --> EXT
+    API <--> DB
+
+Architecture Layers
+
+Layer| Technology| Responsibility
+Presentation| React, Three.js| Interactive dashboard and 3D infrastructure visualization
+API| FastAPI| Backend endpoints and application communication
+Orchestration| LangGraph| Agent coordination and workflow management
+Intelligence| Claude, NetworkX| AI reasoning, investigation, and causal analysis
+Safety| Python Policy Engine| Permission validation and execution restrictions
+Approval| Human-in-the-Loop| Operator authorization
+Recovery| Recovery Verifier| Before-and-after metric validation
+Persistence| SQLite| Incidents, audit logs, and knowledge base
+Integrations| GitHub, Slack, Discord| External investigation and notifications
+
+Incident Processing Lifecycle
+
+1. Detection: Simulated monitoring telemetry generates an incident.
+2. Triage: The system evaluates severity and potential blast radius.
+3. Investigation: Agents collect and correlate diagnostic evidence.
+4. Root Cause Analysis: NetworkX evaluates service dependencies and causal paths.
+5. Verification: Investigation claims are validated against telemetry.
+6. Decision: A deterministic confidence score is calculated.
+7. Safety Validation: The Python policy engine checks the proposed remediation.
+8. Human Approval: The operator approves or rejects the action.
+9. Execution: Approved remediation is executed.
+10. Recovery: Independent verification checks whether the system recovered.
+11. Documentation: Incident details and postmortems are persisted.
+
+Core Architecture Principles
 
 1. Separation of Intelligence and Authority: AI agents investigate and recommend; the policy engine controls execution permissions.
 2. Evidence Before Action: Remediation recommendations must be supported by verified evidence.
 3. Human Accountability: Mandatory approval before remediation execution.
 4. Verified Recovery: An incident is resolved only after independent recovery checks.
 5. Auditable Execution: Incident decisions and actions are recorded.
+
+---
+
+📁 Project Structure
+
+PagerPal follows a modular project structure that separates backend services, agent orchestration, frontend visualization, testing, evaluation, and deployment.
+
+PagerPal/
+│
+├── backend/
+│   │
+│   ├── main.py
+│   │
+│   ├── agents/
+│   │   ├── supervisor.py
+│   │   ├── triage.py
+│   │   ├── investigator.py
+│   │   ├── remediation.py
+│   │   └── communications.py
+│   │
+│   ├── tests/
+│   │   ├── test_stage_a_simulator.py
+│   │   ├── test_stage_b_correlation_rca.py
+│   │   ├── test_stage_c_verifier_policy.py
+│   │   ├── test_stage_d_workflow.py
+│   │   ├── test_stage_e_kb_postmortem.py
+│   │   └── test_backend.py
+│   │
+│   └── eval/
+│       └── run_eval.py
+│
+├── frontend/
+│   │
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── assets/
+│   │   └── ...
+│   │
+│   ├── public/
+│   ├── package.json
+│   ├── vite.config.js
+│   └── vercel.json
+│
+├── eval_results/
+│   ├── eval_results.csv
+│   └── eval_summary.md
+│
+├── run.py
+├── render.yaml
+├── requirements.txt
+├── DEPLOYMENT.md
+├── DEMO.md
+└── README.md
+
+Note: This is an illustrative logical structure. Verify actual filenames and folders against the repository before publishing.
+
+Core Module Responsibilities
+
+Module| Purpose
+"backend/main.py"| FastAPI application entry point
+"backend/agents/"| Specialized AI agent implementations
+"backend/tests/"| Automated unit and integration tests
+"backend/eval/"| Incident evaluation benchmark
+"frontend/src/"| React dashboard and visualization components
+"eval_results/"| Benchmark reports and evaluation results
+"run.py"| Application startup
+"render.yaml"| Backend deployment configuration
+"DEPLOYMENT.md"| Deployment instructions
+"DEMO.md"| Demonstration walkthrough
 
 ---
 
@@ -230,13 +382,15 @@ PagerPal is designed around controlled autonomy.
 - Recovery must be independently verified.
 - Historical knowledge-base fixes remain suggestions only.
 
+Our Safety Philosophy
+
 AI proposes. Policy validates. Humans authorize. Recovery verification confirms.
 
 ---
 
 📊 Testing & Evaluation
 
-PagerPal includes a comprehensive automated testing and evaluation framework.
+PagerPal includes an automated testing and evaluation framework covering the major stages of the incident-response workflow.
 
 Automated Test Suite
 
@@ -298,8 +452,6 @@ Never commit API keys or secrets to GitHub.
 
 3. Install Backend Dependencies
 
-Install the dependencies listed in the project's backend requirements file.
-
 pip install -r requirements.txt
 
 4. Install Frontend Dependencies
@@ -346,7 +498,7 @@ Frontend| Vercel
 Backend| Render
 Database| SQLite
 
-Deployment configuration files:
+Deployment Configuration
 
 vercel.json
 render.yaml
@@ -364,9 +516,9 @@ Live Deployment
 
 Explore PagerPal through the deployed application.
 
-Demo: https://pagerpal.vercel.app/
+🌐 Demo: https://pagerpal.vercel.app/
 
-The demonstration showcases:
+Demonstration Workflow
 
 1. Incident detection and triage.
 2. Multi-agent investigation.
@@ -385,7 +537,7 @@ For the complete demonstration flow, refer to "DEMO.md".
 
 Built by Team PagerPal
 
-Developed for AgentX at SYNERGY, Syedric College.
+Developed for AgentX at SYNERGY, Sahyadri College of Engineering and Management.
 
 Team Member
 Ajiras Abhishek
@@ -403,10 +555,12 @@ It is intelligent systems that can understand failures, investigate evidence, re
 
 PagerPal brings autonomous intelligence and responsible automation together.
 
+---
+
 <p align="center">⚡ PAGERPAL
 
 Investigate Smarter. Respond Faster. Recover Safely.
 
-Built for AgentX | SYNERGY | Syedric College
+Built for AgentX | SYNERGY | Sahyadri College of Engineering and Management
 
 </p>
